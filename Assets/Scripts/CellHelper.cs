@@ -14,7 +14,6 @@ public class CellHelper : MonoBehaviour
 
     int cellsCount = 0;
 
-    [MenuItem("Cells/Spawn Grid")]
     void Start ()   
     {
 		for(int x = 0; x < GameGrid.GRID_DIMENSIONS; x++)

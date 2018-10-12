@@ -9,8 +9,8 @@ public class DimensionDataEditor : Editor
 {
     private const int defaultCellSize = 25; // px
 
-    private SerializedProperty gridSize;
-    private SerializedProperty cells;
+    private UnityEditor.SerializedProperty gridSize;
+    private UnityEditor.SerializedProperty cells;
 
     private Rect lastRect;
 
