@@ -5,7 +5,9 @@ using UnityEngine;
 public class GameCanvas : MonoBehaviour
 {
 
-	// Use this for initialization
+    [SerializeField]
+    private GameObject buildingsPanel, upgradesPanel, shopPanel;
+	
 	void Start ()
     {
 		
@@ -14,5 +16,20 @@ public class GameCanvas : MonoBehaviour
     public void GridButton()
     {
         FindObjectOfType<GameGrid>().DisplayingGrid();
+    }
+
+    public void ShopButton()
+    {
+        shopPanel.SetActive(!shopPanel.activeSelf);
+    }
+
+    public void BuildingsButton()
+    {
+        buildingsPanel.SetActive(!buildingsPanel.activeSelf);
+    }
+
+    public void UpgradesButton()
+    {
+        upgradesPanel.SetActive(!upgradesPanel.activeSelf);
     }
 }

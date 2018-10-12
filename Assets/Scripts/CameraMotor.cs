@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraMotor : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class CameraMotor : MonoBehaviour
     private float resistanceDistance = 0.1f, cameraBounds = 5f;
     private float inputMultiplier = 5f;
 
-    private float zoomValue = 5, minZoom = 2, maxZoom = 5;
+    private float zoomValue = 5, minZoom = 2, maxZoom = 5, camOffset = 3f;
     private float swipeZoomSpeed = 5f;
 
     void Start ()
@@ -23,8 +24,9 @@ public class CameraMotor : MonoBehaviour
 	
     void Update()
     {
+
 #if (UNITY_ANDROID && !UNITY_EDITOR) || (UNITY_IPHONE && !UNITY_EDITOR)
-        if (Input.touchCount == 1)
+        if (Input.touchCount == 1 && !EventSystem.current.IsPointerOverGameObject())
         {
             Touch currentTouch = Input.GetTouch(0);
 
@@ -92,7 +94,7 @@ public class CameraMotor : MonoBehaviour
 
         Vector2 worldDelta = (Vector2)Input.mousePosition - worldStartPoint;
 
-        if (activeTap && worldDelta.magnitude > resistanceDistance)
+        if (activeTap && worldDelta.magnitude > resistanceDistance && !EventSystem.current.IsPointerOverGameObject())
         {
             MoveCamera(worldDelta);
         }
@@ -112,7 +114,7 @@ public class CameraMotor : MonoBehaviour
 
         Vector3 sp = selfTransform.position;
 
-        selfTransform.position = new Vector3(Mathf.Clamp(sp.x, -cameraBounds - 1, cameraBounds), zoomValue, Mathf.Clamp(sp.z, -cameraBounds, cameraBounds));
+        selfTransform.position = new Vector3(Mathf.Clamp(sp.x, -(cameraBounds - camOffset), cameraBounds + camOffset), zoomValue, Mathf.Clamp(sp.z, -cameraBounds, cameraBounds));
     }
 
     // convert screen point to world point

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class GameGrid : MonoBehaviour
 {
-    public const int GRID_DIMENSIONS = 19;
+    public const int GRID_DIMENSIONS = 25;
 
     private Cell[,] gridCells;
 

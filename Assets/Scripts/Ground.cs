@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class Ground : MonoBehaviour
 { 
-    private const int UNUSED_ZONE_WIDTH = 4;
+    public int UNUSED_ZONE_WIDTH = 7;
 
     [SerializeField]
     private GameGrid gameGrid;
+
+    private Transform objectsStorage;
     
 	
 	void Start ()
     {
+        objectsStorage = GameObject.FindGameObjectWithTag("ObjectsStorage").transform;
         GenerateUnusedZone();
 	}
 
@@ -73,7 +76,7 @@ public class Ground : MonoBehaviour
             }
         }
 
-        Instantiate(_go, gameGrid.GridCells[_z, _x].transform.position, Quaternion.identity);
+        Instantiate(_go, gameGrid.GridCells[_z, _x].transform.position, Quaternion.identity, objectsStorage);
     }
 	
 }
