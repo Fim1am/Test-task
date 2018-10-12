@@ -6,31 +6,48 @@ using UnityEngine;
 
 public class GameGrid : MonoBehaviour
 {
+    public const int GRID_DIMENSIONS = 19;
 
-    [SerializeField]
-    private GameObject visualGrid;
+    private Cell[,] gridCells;
 
-    [SerializeField]
-    private CellsLine[] rowsWidth;
+    public Cell[,] GridCells {
+        get
+            {
+            if (gridCells == null)
+                InitGrid();
 
-    [SerializeField]
-    private CellsLine[] rowsLength;
+            return gridCells;
+
+            }
+         }
 
     [SerializeField]
     private Cell[] cells;
 
-    private int gridDimension = 18;
+    private bool isVisualized;
 
     public void DisplayingGrid()
     {
-        visualGrid.SetActive(!visualGrid.activeSelf);
+        isVisualized = !isVisualized;
+
+        for(int i = 0; i < cells.Length; i++)
+        {
+            cells[i].Visualize(isVisualized);
+        }
     }
 
-}
+    private void InitGrid()
+    {
+        gridCells = new Cell[GRID_DIMENSIONS, GRID_DIMENSIONS];
+
+        for (int l = 0; l < GRID_DIMENSIONS; l++)
+        {
+            for (int w = 0; w < GRID_DIMENSIONS; w++)
+            {
+                GridCells[l, w] = cells[(l * GRID_DIMENSIONS) + w];
+            }
+        }
+    }
 
 
-[System.Serializable]
-class CellsLine
-{
-    public Cell[] cells = new Cell[18];
 }
