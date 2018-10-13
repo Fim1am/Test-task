@@ -21,8 +21,12 @@ public class BuildingController : MonoBehaviour
 
     private bool canSpawn;
 
+    private float dragOffset = 50f, offsetMultiplier = 60f;
+    Vector3 mousePosition;
+
     private void Start()
     {
+        dragOffset = dragOffset / Screen.height * offsetMultiplier;
         touchedCells = new List<Cell>();
         camContainer = FindObjectOfType<CameraMotor>().gameObject;
         scrollRects = FindObjectsOfType<ScrollRect>();
@@ -38,12 +42,22 @@ public class BuildingController : MonoBehaviour
 
     void Update()
     {
+        mousePosition = Input.mousePosition;
+
+        mousePosition += Vector3.up * dragOffset;
+
+#if (UNITY_ANDROID && !UNITY_EDITOR) || (UNITY_IPHONE && !UNITY_EDITOR)
+        mousePosition += Vector3.up * dragOffset * 75;
+#endif
+
+        Debug.Log(mousePosition + "  " + Input.mousePosition);
+
         if (objectToBuild == null)
             return;
 
         if (objectImage != null && Input.GetMouseButton(0))
         {
-            objectImage.transform.position = Input.mousePosition;
+            objectImage.transform.position = mousePosition;
 
             for (int i = 0; i < scrollRects.Length; i++)
                 scrollRects[i].enabled = false;
@@ -62,6 +76,12 @@ public class BuildingController : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
+            if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+            {
+                Destroy(this);
+                return;
+            }
+
             if(canSpawn)
             {
 
@@ -74,11 +94,8 @@ public class BuildingController : MonoBehaviour
                 Destroy(this);
             }
 
-            if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
-            {
-                Destroy(this);
-            }
         }
+
     }
 
     private void GridChecking()
@@ -87,7 +104,7 @@ public class BuildingController : MonoBehaviour
 
         touchedCells.Clear();
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
 
         RaycastHit hit;
 

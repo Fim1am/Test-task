@@ -15,6 +15,7 @@ public class GameCanvas : MonoBehaviour
     public Transform CreateBuildingImage(IBuildeable _object)
     {
         Image img = Instantiate(buidingImagePrefab, transform).gameObject.GetComponent<Image>();
+        img.transform.position = Input.mousePosition;
         img.sprite = _object.GetImage();
 
         return img.transform;

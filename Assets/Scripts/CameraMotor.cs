@@ -15,7 +15,7 @@ public class CameraMotor : MonoBehaviour
     private float inputMultiplier = 5f;
 
     private float zoomValue = 5, minZoom = 2, maxZoom = 5, camOffset = 4f;
-    private float swipeZoomSpeed = 5f;
+    private float swipeZoomSpeed = .5f;
 
     void Start ()
     {
@@ -26,22 +26,6 @@ public class CameraMotor : MonoBehaviour
     {
 
 #if (UNITY_ANDROID && !UNITY_EDITOR) || (UNITY_IPHONE && !UNITY_EDITOR)
-        if (Input.touchCount == 1 && !EventSystem.current.IsPointerOverGameObject())
-        {
-            Touch currentTouch = Input.GetTouch(0);
-
-            if (currentTouch.phase == TouchPhase.Began)
-            {
-                worldStartPoint = (Vector2)currentTouch.position;
-            }
-
-            if (currentTouch.phase == TouchPhase.Moved)
-            {
-                Vector2 worldDelta = currentTouch.position - worldStartPoint;
-
-                MoveCamera(worldDelta);
-            }
-        }
 
         if (Input.touchCount == 2)
         {
@@ -60,14 +44,32 @@ public class CameraMotor : MonoBehaviour
             // Find the difference in the distances between each frame.
             float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
 
-            zoomValue = Mathf.Clamp(zoomValue + deltaMagnitudeDiff * swipeZoomSpeed, minZoom, maxZoom);
+            zoomValue = Mathf.Clamp(zoomValue + deltaMagnitudeDiff * swipeZoomSpeed * Time.deltaTime, minZoom, maxZoom);
 
             Vector3 sp = selfTransform.position;
 
             sp.y = Mathf.Lerp(sp.y, zoomValue, maxZoom * Time.deltaTime);
 
             selfTransform.position = sp;
+            return;
         }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            activeTap = true;
+            worldStartPoint = Input.mousePosition;
+        }
+
+        if (Input.GetMouseButtonUp(0))
+            activeTap = false;
+
+        Vector2 worldDelta = (Vector2)Input.mousePosition - worldStartPoint;
+
+        if (activeTap && worldDelta.magnitude > resistanceDistance && !EventSystem.current.IsPointerOverGameObject())
+        {
+            MoveCamera(worldDelta);
+        }
+
 #endif
 
 #if UNITY_EDITOR
