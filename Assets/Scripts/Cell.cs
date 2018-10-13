@@ -9,17 +9,38 @@ public class Cell : MonoBehaviour
 
     private GridObject objectOn;
 
+    [SerializeField]
+    private Material visualMaterial, visualMaterialUnavailable, visualMaterialAvailable;
+
+    [HideInInspector]
+    public int cellXCoordinate, cellZCoordinate;
+
 	void Start ()
     {
         visualCell = transform.Find("displayableCell").gameObject;
     }
-	
+
+    public void VisualizeAvailability(bool _available)
+    {
+        if (visualCell == null)
+        {
+            visualCell = transform.Find("displayableCell").gameObject;
+        }
+
+        if (_available)
+            visualCell.GetComponent<MeshRenderer>().material = visualMaterialAvailable;
+        else
+            visualCell.GetComponent<MeshRenderer>().material = visualMaterialUnavailable;
+    }
+
     public void Visualize(bool _isVisible)
     {
         if(visualCell == null)
         {
             visualCell = transform.Find("displayableCell").gameObject;
         }
+
+        visualCell.GetComponent<MeshRenderer>().material = visualMaterial;
 
         visualCell.SetActive(_isVisible);
     }
@@ -34,12 +55,12 @@ public class Cell : MonoBehaviour
         objectOn = null;
     }
 
-    public string GetCellData()
+    public string GetCellInfo()
     {
         if (IsEmpty())
             return "cell is empty";
         else
-            return "on this cell " + objectOn;
+            return "on this cell " + objectOn.name;
 
     }
 

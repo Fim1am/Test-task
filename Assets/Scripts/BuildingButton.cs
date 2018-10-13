@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class BuildingButton : MonoBehaviour
+public class BuildingButton : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField]
     private GridObject buideableObj;
@@ -12,18 +13,18 @@ public class BuildingButton : MonoBehaviour
     private Image buildingImage;
 
     [SerializeField]
-    private Text priceText;
+    private Text priceText, nameText;
 
     private void Start()
     {
         buildingImage.sprite = (buideableObj as IBuildeable).GetImage();
         priceText.text = (buideableObj as IBuildeable).GetPrice().ToString();
+        nameText.text = (buideableObj as IBuildeable).GetName();
     }
 
 
-
-    public void RequestBuilding()
+    void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
     {
-
+        FindObjectOfType<GameCanvas>().gameObject.AddComponent<BuildingController>().SetObjectToBuild(buideableObj);
     }
 }

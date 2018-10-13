@@ -7,7 +7,7 @@ public class CellHelper : MonoBehaviour
 {
 
     [SerializeField]
-    private GameObject cell;
+    private Cell cell;
 
     [SerializeField]
     private Transform cellsParent;
@@ -18,11 +18,14 @@ public class CellHelper : MonoBehaviour
     {
 		for(int x = 0; x < GameGrid.GRID_DIMENSIONS; x++)
         {
-            for (int y = 0; y < GameGrid.GRID_DIMENSIONS; y++)
+            for (int z = 0; z < GameGrid.GRID_DIMENSIONS; z++)
             {
-                Vector3 pos = new Vector3(x, 0, y);
+                Vector3 pos = new Vector3(x, 0, z);
 
-                Instantiate(cell, transform.position + pos, Quaternion.identity, cellsParent).gameObject.name = ("cell_" + cellsCount++);
+                Cell newCell = Instantiate(cell, transform.position + pos, Quaternion.identity, cellsParent);
+                newCell.cellXCoordinate = x;
+                newCell.cellZCoordinate = z;
+                newCell.gameObject.name = ("cell_" + cellsCount++);
 
             }
         }

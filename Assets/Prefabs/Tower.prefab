@@ -126,5 +126,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DimensionsData: {fileID: 11400000, guid: 8736887b6b5032e4c8349cebf182bed3, type: 2}
   Id: 14
-  lookSprite: {fileID: 21300000, guid: 3e30e324a92f673438647bd22ed3a484, type: 3}
+  lookSprite: {fileID: 21300000, guid: 985ef775d8231874fa37aba441533158, type: 3}
   price: 444
+  objName: Tower

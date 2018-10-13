@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4105253084651736}
   - component: {fileID: 114419779066125082}
+  - component: {fileID: 65640823143945546}
   m_Layer: 0
   m_Name: Cell
   m_TagString: Untagged
@@ -37,7 +38,6 @@ GameObject:
   - component: {fileID: 4308658952353658}
   - component: {fileID: 33780753092413598}
   - component: {fileID: 23705350298994760}
-  - component: {fileID: 64413725967079646}
   m_Layer: 0
   m_Name: displayableCell
   m_TagString: Untagged
@@ -114,20 +114,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1707171745039970}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!64 &64413725967079646
-MeshCollider:
+--- !u!65 &65640823143945546
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1707171745039970}
+  m_GameObject: {fileID: 1671445646214920}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  serializedVersion: 2
+  m_Size: {x: 10, y: 0.1, z: 10}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114419779066125082
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -139,3 +137,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8ae28c1806f5274e91cc1ace8a4820f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visualMaterial: {fileID: 0}
+  visualMaterialUnavailable: {fileID: 0}
+  visualMaterialAvailable: {fileID: 0}
+  cellXCoordinate: 0
+  cellZCoordinate: 0

@@ -26,6 +26,14 @@ public class GameGrid : MonoBehaviour
 
     private bool isVisualized;
 
+    public bool IsGridVisualized
+    {
+        get
+        {
+            return isVisualized;
+        }
+    }
+
     public void DisplayingGrid()
     {
         isVisualized = !isVisualized;
@@ -36,6 +44,16 @@ public class GameGrid : MonoBehaviour
         }
     }
 
+    public void DisplayingGrid(bool _display)
+    {
+        for (int i = 0; i < cells.Length; i++)
+        {
+            cells[i].Visualize(_display);
+        }
+
+        isVisualized = _display;
+    }
+
     private void InitGrid()
     {
         gridCells = new Cell[GRID_DIMENSIONS, GRID_DIMENSIONS];
@@ -44,7 +62,7 @@ public class GameGrid : MonoBehaviour
         {
             for (int w = 0; w < GRID_DIMENSIONS; w++)
             {
-                GridCells[l, w] = cells[(l * GRID_DIMENSIONS) + w];
+                GridCells[w, l] = cells[(l * GRID_DIMENSIONS) + w];
             }
         }
     }

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Ground : MonoBehaviour
 { 
-    public int UNUSED_ZONE_WIDTH = 7;
+    [Range(0, 10)]
+    public int UNUSED_ZONE_WIDTH = 6;
 
     [SerializeField]
     private GameGrid gameGrid;
@@ -22,9 +23,9 @@ public class Ground : MonoBehaviour
     {
         bool nextCell = false;
 
-        for(int z = 0; z < GameGrid.GRID_DIMENSIONS; z++)
+        for(int x = 0; x < GameGrid.GRID_DIMENSIONS; x++)
         {
-            for(int x = 0; x < GameGrid.GRID_DIMENSIONS; x++)
+            for(int z = 0; z < GameGrid.GRID_DIMENSIONS; z++)
             {
 
                 nextCell = false;
@@ -45,16 +46,16 @@ public class Ground : MonoBehaviour
                                     continue;
                                 }
 
-                                if (gameGrid.GridCells[z, x] != null && !gameGrid.GridCells[z + oL, x + oW].IsEmpty() == go.DimensionsData.GetCells()[oL, oW]) // check all cell that need for object spawn
-                                {
-                                    nextCell = true;
-                                }
-                                else
+                                if (!go.DimensionsData.GetCells()[oL, oW] || gameGrid.GridCells[z + oL, x + oW].IsEmpty() == go.DimensionsData.GetCells()[oL, oW]) // check all cell that need for object spawn
                                 {
                                     if(oL == go.DimensionsData.gridSize - 1 && oW == go.DimensionsData.gridSize - 1) // check if we have enough room then spawn an object
                                     {
                                         SpawnObject(z, x, go);
                                     }
+                                }
+                                else
+                                {
+                                    nextCell = true;
                                 }
                             }
 
@@ -66,7 +67,7 @@ public class Ground : MonoBehaviour
         }
     }
 
-    private void SpawnObject(int _z, int _x, GridObject _go)
+    public void SpawnObject(int _z, int _x, GridObject _go)
     {
         for (int oL = 0; oL < _go.DimensionsData.gridSize; oL++) // iterate through object dimensions ( lenght and width)
         {
@@ -77,6 +78,7 @@ public class Ground : MonoBehaviour
         }
 
         Instantiate(_go, gameGrid.GridCells[_z, _x].transform.position, Quaternion.identity, objectsStorage);
+        Debug.Log(_z + "z /" + _x + "x" + " - go " + _go.name);
     }
 	
 }

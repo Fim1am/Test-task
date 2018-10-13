@@ -52,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1289370732911482}
   m_LocalRotation: {x: 0.000000021855694, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.35, y: 0, z: -0.35}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4124393498972998}
@@ -125,10 +125,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 425aee5d2116b78449f9cb1d50389ec8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DimensionsData: {fileID: 11400000, guid: bbd110dbb904aa543a00a67341c12196, type: 2}
+  DimensionsData: {fileID: 11400000, guid: 17d3a56abfd1f07468b7eb69828e4530, type: 2}
   Id: 15
-  lookSprite: {fileID: 21300000, guid: 3e30e324a92f673438647bd22ed3a484, type: 3}
+  lookSprite: {fileID: 21300000, guid: 356c058785bf4764392e196fd82ab7b9, type: 3}
   price: 640
+  objName: Tower l2
 --- !u!114 &114704347507730448
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -144,3 +145,4 @@ MonoBehaviour:
   Id: 15
   lookSprite: {fileID: 21300000, guid: 3e30e324a92f673438647bd22ed3a484, type: 3}
   price: 400
+  objName: 

@@ -14,7 +14,7 @@ public class CameraMotor : MonoBehaviour
     private float resistanceDistance = 0.1f, cameraBounds = 5f;
     private float inputMultiplier = 5f;
 
-    private float zoomValue = 5, minZoom = 2, maxZoom = 5, camOffset = 3f;
+    private float zoomValue = 5, minZoom = 2, maxZoom = 5, camOffset = 4f;
     private float swipeZoomSpeed = 5f;
 
     void Start ()
@@ -114,7 +114,7 @@ public class CameraMotor : MonoBehaviour
 
         Vector3 sp = selfTransform.position;
 
-        selfTransform.position = new Vector3(Mathf.Clamp(sp.x, -(cameraBounds - camOffset), cameraBounds + camOffset), zoomValue, Mathf.Clamp(sp.z, -cameraBounds, cameraBounds));
+        selfTransform.position = new Vector3(Mathf.Clamp(sp.x, -(cameraBounds - camOffset), cameraBounds + camOffset), zoomValue, Mathf.Clamp(sp.z, -cameraBounds + 2, cameraBounds + 2));
     }
 
     // convert screen point to world point

@@ -10,6 +10,9 @@ public class Building : GridObject, IBuildeable
     [SerializeField]
     private int price;
 
+    [SerializeField]
+    private string objName;
+
     public DimensionData GetDimension()
     {
         return DimensionsData;
@@ -18,6 +21,11 @@ public class Building : GridObject, IBuildeable
     public Sprite GetImage()
     {
         return lookSprite;
+    }
+
+    public string GetName()
+    {
+        return objName;
     }
 
     public int GetPrice()

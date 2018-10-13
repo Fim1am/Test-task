@@ -7,4 +7,5 @@ public interface IBuildeable
     Sprite GetImage();
     int GetPrice();
     DimensionData GetDimension();
+    string GetName();
 }
